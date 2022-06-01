@@ -14,18 +14,6 @@
 
         public function create(UserModel $user) {
 
-            /* VALIDAÇÃO DE EMAIL (DEVERIA ESTAR AQUI) */
-            $query = "SELECT * FROM users WHERE email = :email";
-            $prepare = $this->conn->prepare($query);
-            $prepare->bindValue(":email", $user->getEmail());
-            $prepare->execute();
-
-            $result = $prepare->fetchAll(PDO::FETCH_ASSOC);
-
-            if(count($result) > 0) {
-                throw new Exception("Email já cadastrado");
-            }
-
             try {
 
                 $query = "INSERT INTO users (username, email, password) VALUES (:username, :email, :password)";
